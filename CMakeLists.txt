@@ -22,9 +22,9 @@ set (SOURCES
 add_library(shoom STATIC ${SOURCES})
 
 if (${CMAKE_GENERATOR} MATCHES "Visual")
-    add_compile_options(-W3 -EHsc)
+    add_compile_options(-W3 -WX)
 else()
-    add_compile_options(-Wall -Wno-missing-braces)
+    add_compile_options(-Wall -Wno-missing-braces -Werror)
 
     target_compile_options(shoom PUBLIC -std=c++11)
 endif()

@@ -25,10 +25,10 @@ class Shm {
   explicit Shm(std::string path, size_t size);
 
   // create a shared memory area and open it for writing
-  inline ShoomError Create() { CreateOrOpen(true); };
+  inline ShoomError Create() { return CreateOrOpen(true); };
 
   // open an existing shared memory for reading
-  inline ShoomError Open() { CreateOrOpen(false); };
+  inline ShoomError Open() { return CreateOrOpen(false); };
 
   size_t Size() { return size_; };
   const std::string& Path() { return path_; }

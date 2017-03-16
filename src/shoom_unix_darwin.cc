@@ -8,6 +8,10 @@
 #include <sys/stat.h>  // for mode constants
 #include <unistd.h>    // unlink
 
+#if defined(__APPLE__)
+#include <errno.h>
+#endif // __APPLE__
+
 #include <stdexcept>
 
 namespace shoom {
