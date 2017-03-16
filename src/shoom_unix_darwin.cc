@@ -1,6 +1,4 @@
 
-#if defined(__linux__) || defined(__APPLE__)
-
 #include <shoom.h>
 
 #include <fcntl.h>     // for O_* constants
@@ -76,5 +74,3 @@ Shm::~Shm() {
 }
 
 }  // namespace shoom
-
-#endif  // __linux__ or __APPLE__

@@ -1,6 +1,4 @@
 
-#if defined(_WIN32)
-
 #include <shoom.h>
 
 #include <io.h>  // CreateFileMappingA, OpenFileMappingA, etc.
@@ -58,5 +56,3 @@ Shm::~Shm() {
 }
 
 }  // namespace shoom
-
-#endif  // _WIN32

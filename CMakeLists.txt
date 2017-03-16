@@ -14,10 +14,16 @@ endif()
 enable_testing()
 
 set (SOURCE_DIR src)
+
+if (${CMAKE_GENERATOR} MATCHES "Visual")
 set (SOURCES
-    ${SOURCE_DIR}/shoom_unix_darwin.cc
     ${SOURCE_DIR}/shoom_win32.cc
 )
+else()
+set (SOURCES
+    ${SOURCE_DIR}/shoom_unix_darwin.cc
+)
+endif()
 
 add_library(shoom STATIC ${SOURCES})
 
