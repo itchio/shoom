@@ -12,6 +12,8 @@
 
 namespace shoom {
 
+Shm::Shm(std::string path, size_t size) : size_(size) { path_ = "/" + path; };
+
 ShoomError Shm::CreateOrOpen(bool create) {
   if (create) {
     // shm segments persist across runs, and macOS will refuse
@@ -48,22 +50,25 @@ ShoomError Shm::CreateOrOpen(bool create) {
 
   int prot = create ? (PROT_READ | PROT_WRITE) : PROT_READ;
 
-  mapped_ = (char *)mmap(nullptr,     // addr
-                         size_,       // length
-                         prot,        // prot
-                         MAP_SHARED,  // flags
-                         fd_,         // fd
-                         0            // offset
-                         );
+  data_ = static_cast<uint8_t *>(mmap(nullptr,     // addr
+                                      size_,       // length
+                                      prot,        // prot
+                                      MAP_SHARED,  // flags
+                                      fd_,         // fd
+                                      0            // offset
+                                      ));
 
-  if (!mapped_) {
-    throw std::runtime_error("mmap failed");
+  if (!data_) {
+    return kErrorMappingFailed;
   }
+
+  return kOK;
 }
 
 Shm::~Shm() {
-  munmap(mapped_, size_);
+  munmap(data_, size_);
   close(fd_);
+  shm_unlink(path_.c_str());
 }
 
 }  // namespace shoom

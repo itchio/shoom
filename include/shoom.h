@@ -20,23 +20,33 @@ enum ShoomError {
 
 class Shm {
  public:
-  explicit Shm(std::string path, size_t size) :
-    path_(path), size_(size) {};
-  ShoomError Create();
-  ShoomError Open();
+  // path should only contain alpha-numeric characters, and is normalized
+  // on linux/macOS.
+  explicit Shm(std::string path, size_t size);
+
+  // create a shared memory area and open it for writing
+  inline ShoomError Create() { CreateOrOpen(true); };
+
+  // open an existing shared memory for reading
+  inline ShoomError Open() { CreateOrOpen(false); };
+
+  size_t Size() { return size_; };
+  const std::string& Path() { return path_; }
+
+  inline uint8_t* operator*() { return data_; }
+
   ~Shm();
 
  private:
   ShoomError CreateOrOpen(bool create);
 
   std::string path_;
-  char *mapped_;
-  size_t size_;
+  uint8_t* data_ = nullptr;
+  size_t size_ = 0;
 #if defined(CAPSULE_WINDOWS)
   HANDLE handle_;
 #else
-  int fd_;
+  int fd_ = -1;
 #endif
 };
-
 }

@@ -28,3 +28,7 @@ else()
 
     target_compile_options(shoom PUBLIC -std=c++11)
 endif()
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
+    target_link_libraries(shoom -lrt) # shm_*
+endif() # Linux
