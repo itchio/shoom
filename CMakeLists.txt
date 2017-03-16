@@ -19,8 +19,6 @@ set (SOURCES
     ${SOURCE_DIR}/shoom_win32.cc
 )
 
-add_library(shoom STATIC ${SOURCES})
-
 if (${CMAKE_GENERATOR} MATCHES "Visual")
     add_compile_options(-W3 -WX)
 else()
@@ -28,6 +26,8 @@ else()
 
     target_compile_options(shoom PUBLIC -std=c++11)
 endif()
+
+add_library(shoom STATIC ${SOURCES})
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     target_link_libraries(shoom -lrt) # shm_*

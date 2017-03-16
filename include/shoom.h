@@ -43,7 +43,7 @@ class Shm {
   std::string path_;
   uint8_t* data_ = nullptr;
   size_t size_ = 0;
-#if defined(CAPSULE_WINDOWS)
+#if defined(_WIN32)
   HANDLE handle_;
 #else
   int fd_ = -1;
