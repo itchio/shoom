@@ -11,6 +11,7 @@ test-windows-amd64:
     - cd build
     - cmake -G "Visual Studio 14 2015 Win64" ..
     - msbuild ALL_BUILD.vcxproj
+    - ctest -C Debug
 
 test-windows-386:
   stage: test
@@ -21,6 +22,7 @@ test-windows-386:
     - cd build
     - cmake -G "Visual Studio 14 2015" ..
     - msbuild ALL_BUILD.vcxproj
+    - ctest -C Debug
 
 test-linux-amd64:
   stage: test
