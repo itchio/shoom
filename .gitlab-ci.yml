@@ -9,7 +9,7 @@ test-windows-amd64:
   script:
     - mkdir build
     - cd build
-    - cmake -G "Visual Studio 2014 Win64" ..
+    - cmake -G "Visual Studio 14 2015 Win64" ..
     - msbuild ALL_BUILD.vcxproj
 
 test-windows-386:
@@ -19,7 +19,7 @@ test-windows-386:
   script:
     - mkdir build
     - cd build
-    - cmake -G "Visual Studio 2014" ..
+    - cmake -G "Visual Studio 14 2015" ..
     - msbuild ALL_BUILD.vcxproj
 
 test-linux-amd64:
