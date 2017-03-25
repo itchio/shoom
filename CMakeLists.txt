@@ -8,10 +8,9 @@ option(SHOOM_BUILD_TESTS "Build tests for shoom" ON)
 include_directories("include")
 
 if (SHOOM_BUILD_TESTS)
+    enable_testing()
     add_subdirectory(test)
 endif()
-
-enable_testing()
 
 set (SOURCE_DIR src)
 
