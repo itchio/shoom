@@ -52,13 +52,19 @@ ShoomError Shm::CreateOrOpen(bool create) {
 
   int prot = create ? (PROT_READ | PROT_WRITE) : PROT_READ;
 
-  data_ = static_cast<uint8_t *>(mmap(nullptr,     // addr
-                                      size_,       // length
-                                      prot,        // prot
-                                      MAP_SHARED,  // flags
-                                      fd_,         // fd
-                                      0            // offset
-                                      ));
+  auto memory = mmap(nullptr,     // addr
+                     size_,       // length
+                     prot,        // prot
+                     MAP_SHARED,  // flags
+                     fd_,         // fd
+                     0            // offset
+                );
+
+  if (memory == MAP_FAILED) {
+    return kErrorMappingFailed;
+  }
+
+  data_ = static_cast<uint8_t *>(memory);
 
   if (!data_) {
     return kErrorMappingFailed;
